@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/04 16:51:52 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/04 17:18:20 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/07 13:55:14 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 
-typedef struct ps_stack
+typedef struct s_stack
 {
 	int				n;
-	struct ps_stack	*next;
+	int				position;
+	struct s_stack	*prev;
+	struct s_stack	*next;
+
 }	t_stack;
 
 #endif
