@@ -4,8 +4,7 @@ CFLAGS = -Wall -Werror -Wextra -I.
 NAME = push_swap.a
 
 SOURCES = push_swap.c \
-	
-
+parse_utils.c 
 
 OBJECTS = $(SOURCES:.c=.o)
 
