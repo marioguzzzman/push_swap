@@ -14,23 +14,25 @@
 
 #include <stdio.h>
 
+// int arr[] = the array of integers
+// int n = the number of elements in arr
 void	insertion_sort(int arr[], int n)
 {
-	int	to_sort;
-	int	i;
-	int	j;
+	int	to_sort; // The current element to sort
+	int	i; // Index of element currently being sorted
+	int	j; // Prev elements
 
-	i = 1;
+	i = 1; // Second element
 	while (i < n)
 	{
-		to_sort = arr[i];
+		to_sort = arr[i]; // to_sort is the current number
 		j = i - 1;
-		while (j >= 0 && arr[j] > to_sort)
+		while (j >= 0 && arr[j] > to_sort) // If the prev element is biggerthan the first element
 		{
-			arr[j + 1] = arr[j];
-			j = j - 1;
+			arr[j + 1] = arr[j]; // Move the bigger element
+			j = j - 1; // Move j back again
 		}
-		arr[j + 1] = to_sort;
+		arr[j + 1] = to_sort; // Insert the element where it should be
 		i++;
 	}
 }
