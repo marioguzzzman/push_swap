@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/04 16:51:52 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/07 17:16:51 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/07 18:13:11 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <limits.h>
 
 typedef struct s_stack
 {
