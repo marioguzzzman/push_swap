@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/03 17:42:53 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/06 11:38:13 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/07 13:56:41 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,3 +20,9 @@ Notes
 5. create simple algorithms
 6. create complex algorithms
 */
+
+#include "printf.h"
+
+int	push_swap(void)
+{
+}
