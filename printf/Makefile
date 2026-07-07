@@ -1,15 +1,21 @@
 SHELL = /bin/sh
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -I.
-NAME = push_swap.a
+NAME = libftprintf.a
 
-SOURCES = push_swap.c \
-	
+SOURCES = ft_printf.c \
+	ft_putchar.c \
+	ft_putstr.c \
+	ft_putnbr.c \
+	ft_putunsigned.c \
+	ft_puthex.c \
+	ft_putbase.c \
+	ft_putptr.c
 
 
 OBJECTS = $(SOURCES:.c=.o)
 
-%.o: %.c push_swap.h
+%.o: %.c ft_printf.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
