@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/04 16:51:52 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/07 14:40:25 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/07 17:16:51 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,17 @@
 
 typedef struct s_stack
 {
-	int				n;
-	int				position;
-	struct s_stack	*prev;
-	struct s_stack	*next;
+	int				size;
+	struct s_stack	*top;
+	struct s_stack	*bottom;
 }	t_stack;
 
+typedef struct s_node
+{
+	int				value;
+	struct s_node	*next;
+	struct s_node	*prev;
+}	t_node;
+
+void	push_swap(t_stack *stack);
 #endif

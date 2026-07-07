@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/03 17:42:53 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/07 13:56:41 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/07 17:01:56 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ Notes
 
 #include "printf.h"
 
-int	push_swap(void)
+void	push_swap(void)
 {
 }
