@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/03 17:44:15 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/07 14:43:16 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/07 16:44:13 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,21 @@ int	main(int argc, char **argv)
 	int		i;
 	int		j;
 	char	**array;
+	t_stack	*a;
 
 	i = 1;
 	j = 0;
 	if (argc > 1)
 	{
+		/*init stack a*/
+		/*init stack b*/
 		while (i < argc)
 		{
-			// write(1, "arg: [", 6);
-			// write(1, argv[i], ft_strlen(argv[i]));
-			// write(1, "]\n", 2);
 			array = ft_split(argv[i], ' ');
 			while (array[j] != NULL)
 			{
-				//assign into double link list
+				a = array[j];
+				// assign to singly-link list
 				printf("array %s\n", array[j]);
 				j++;
 			}
@@ -42,5 +43,6 @@ int	main(int argc, char **argv)
 	}
 	else
 		return (1);
+	push_swap(a);
 	return (0);
 }
