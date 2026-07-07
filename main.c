@@ -6,6 +6,16 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/03 17:44:15 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/03 17:44:15 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/07 13:55:35 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
+
+int	main(void)
+{
+	t_stack	*a;
+	t_stack	*b;
+
+	return (0);
+}
