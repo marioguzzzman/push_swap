@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   parse_utils.c                                     :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/07/07 16:56:50 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/07 18:36:10 by maguzman        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/07 16:56:50 by maguzman          #+#    #+#             */
+/*   Updated: 2026/07/08 16:29:09 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,27 @@ long	ft_atol(const char *str)
 	return (converted * sign);
 }
 
-int	get_numbers(char *argv)
+long	*get_numbers(char *argv, int *count)
 {
-	char	**array;
+	long	*numbers;
+	char	**tokens;
 	int		i;
 
-	array = ft_split(argv[i], ' ');
-	return (array);
+	i = 0;
+	tokens = ft_split(argv, ' ');
+	if (tokens == NULL)
+		return (NULL);
+	while (tokens[i] != NULL)
+		i++;
+	*count = i;
+	numbers = malloc(sizeof(long) * *count);
+	if (numbers == NULL)
+		return (NULL);
+	i = 0;
+	while (tokens[i] != NULL)
+	{
+		numbers[i] = ft_atol(tokens[i]);
+		i++;
+	}
+	return (numbers);
 }
