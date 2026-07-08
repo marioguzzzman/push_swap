@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   main.c                                            :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/07/03 17:44:15 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/07 16:44:13 by maguzman        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/03 17:44:15 by maguzman          #+#    #+#             */
+/*   Updated: 2026/07/08 16:26:08 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,22 @@ int	main(int argc, char **argv)
 	int		i;
 	int		j;
 	char	**array;
-	t_stack	*a;
+	int		*numbers_len;
 
+	//t_stack	*a;
 	i = 1;
 	j = 0;
+	count = 0;
 	if (argc > 1)
 	{
 		/*init stack a*/
 		/*init stack b*/
 		while (i < argc)
 		{
-			array = ft_split(argv[i], ' ');
+			array = get_numbers(argv[i], &numbers_len);
 			while (array[j] != NULL)
 			{
-				a = array[j];
+				//a = array[j];
 				// assign to singly-link list
 				printf("array %s\n", array[j]);
 				j++;
@@ -43,6 +45,6 @@ int	main(int argc, char **argv)
 	}
 	else
 		return (1);
-	push_swap(a);
+	//push_swap(a);
 	return (0);
 }
