@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 16:56:50 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/08 16:29:09 by maguzman         ###   ########.fr       */
+/*   Updated: 2026/07/08 17:52:25 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ long	ft_atol(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (converted > (LONG_MAX - (str[i] - '0')) / 10)
-			return (NULL);
-		// too big, bail before the multiply overflows
+			return (LONG_MAX);
+		/* too big, bail before the multiply overflows*/
 		converted = converted * 10 + (str[i] - '0');
 		i++;
 	}

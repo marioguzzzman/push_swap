@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/03 17:44:15 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/08 16:26:08 by maguzman         ###   ########.fr       */
+/*   Updated: 2026/07/08 17:54:10 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,26 @@
 int	main(int argc, char **argv)
 {
 	int		i;
-	int		j;
-	char	**array;
+	char	**arr_numbers;
 	int		*numbers_len;
+	t_stack	*a;
+	t_stack	*b;
 
-	//t_stack	*a;
 	i = 1;
-	j = 0;
-	count = 0;
+	numbers_len = 0;
 	if (argc > 1)
 	{
-		/*init stack a*/
-		/*init stack b*/
 		while (i < argc)
 		{
-			array = get_numbers(argv[i], &numbers_len);
-			while (array[j] != NULL)
-			{
-				//a = array[j];
-				// assign to singly-link list
-				printf("array %s\n", array[j]);
-				j++;
-			}
+			arr_numbers = get_numbers(argv[i], &numbers_len);
 			i++;
 		}
+		if (arr_numbers == NULL)
+			return (NULL);
+		init_stack(&a);
+		init_stack(&b);
 	}
 	else
 		return (1);
-	//push_swap(a);
 	return (0);
 }
