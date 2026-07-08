@@ -4,6 +4,16 @@
 
 A C program that calculates and displays on the standard output the smallest program, made of Push swap language operations, that sorts the integers received as arguments.
 
+# Algorithms
+
+## Simple
+Insertion sort
+
+## Medium
+Bucket sort
+
+## Complex
+Radix Sort
 
 # Instructions
 
@@ -14,5 +24,6 @@ testing main.c
 
 # Resources
 
+doubly-linked list: https://www.geeksforgeeks.org/c/doubly-linked-list-in-c/
 Radix: https://www.geeksforgeeks.org/dsa/radix-sort/
 
