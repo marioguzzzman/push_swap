@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   push_swap.h                                       :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/07/04 16:51:52 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/07 18:13:11 by maguzman        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/04 16:51:52 by maguzman          #+#    #+#             */
+/*   Updated: 2026/07/08 16:16:46 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,6 @@ typedef struct s_node
 }	t_node;
 
 void	push_swap(t_stack *stack);
+long	*get_numbers(char *argv, int *count);
+
 #endif
