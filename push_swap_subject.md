@@ -67,6 +67,11 @@ Version: 1.1
 | `rrb` | reverse rotate b | Shift `b` down by one; last element becomes first. |
 | `rrr` | reverse rotate both | `rra` and `rrb` simultaneously. |
 
+## Examples
+
+`rra` Stack a, top to bottom: 1 2 3 4 (top=1, bottom=4). New order, top to bottom: 4 1 2 3
+rra = "last becomes first, everything else shifts down by one":
+
 ---
 
 ## Algorithm Requirements
