@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 16:51:52 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/08 17:50:14 by maguzman         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   push_swap.h                                       :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/07/04 16:51:52 by maguzman         #+#    #+#              */
+/*   Updated: 2026/07/09 16:01:42 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ typedef struct s_stack
 void	push_swap(t_stack *stack);
 long	*get_numbers(char *argv, int *count);
 void	init_stack(t_stack *s);
+double	disorder_calculation(long *arr_numbers, int numbers_len);
 
 #endif
