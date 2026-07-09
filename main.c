@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/03 17:44:15 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/08 17:54:10 by maguzman         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   main.c                                            :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/07/03 17:44:15 by maguzman         #+#    #+#              */
+/*   Updated: 2026/07/09 16:11:35 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv)
 		}
 		if (arr_numbers == NULL)
 			return (NULL);
+		disorder_calculation(arr_numbers, numbers_len);
 		init_stack(&a);
 		init_stack(&b);
 	}
