@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   push_swap.h                                       :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/07/04 16:51:52 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/09 16:46:50 by maguzman        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/04 16:51:52 by maguzman          #+#    #+#             */
+/*   Updated: 2026/07/09 19:15:31 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_stack
 	struct s_node	*bottom;
 }	t_stack;
 
+void	push_swap(t_stack *stack);
+
 /* STACK */
 t_stack	*init_stack(void);
 
@@ -40,8 +42,9 @@ t_node	*create_node(int value);
 void	stack_add_bottom(t_stack *s, t_node *node);
 
 /* PARSING */
-void	push_swap(t_stack *stack);
+char	*join_args(argc, argv);
 long	*get_numbers(char *argv, int *count);
+long	*parse_args(int argc, char **argv, int *count);
 
 /* ALGORITHMS */
 double	disorder_calculation(long *arr_numbers, int numbers_len);

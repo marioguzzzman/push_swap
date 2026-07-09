@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 16:56:50 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/08 17:52:25 by maguzman         ###   ########.fr       */
+/*   Updated: 2026/07/09 20:03:45 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,66 @@ long	ft_atol(const char *str)
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-		{
 			sign = -sign;
-		}
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (converted > (LONG_MAX - (str[i] - '0')) / 10)
 			return (LONG_MAX);
-		/* too big, bail before the multiply overflows*/
 		converted = converted * 10 + (str[i] - '0');
 		i++;
 	}
 	return (converted * sign);
+}
+
+int	fill_numbers(long *numbers, char **tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens[i] != NULL)
+	{
+		numbers[i] = ft_atol(tokens[i]);
+		if (numbers[i] < INT_MIN || numbers[i] > INT_MAX)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	free_all(char **pointer)
+{
+	int	i;
+
+	i = 0;
+	while (pointer[i] != NULL)
+	{
+		free(pointer[i]);
+		i++;
+	}
+	free(pointer);
+}
+
+char	*join_args(int argc, char **argv)
+{
+	int		i;
+	char	*joined;
+	char	*temp;
+
+	i = 1;
+	joined = ft_strdup("");
+	while (i < argc)
+	{
+		temp = joined;
+		joined = ft_strjoin(joined, argv[i]);
+		free(temp);
+		temp = joined;
+		joined = ft_strjoin(joined, " ");
+		free(temp);
+		i++;
+	}
+	return (joined);
 }
 
 long	*get_numbers(char *argv, int *count)
@@ -59,12 +105,29 @@ long	*get_numbers(char *argv, int *count)
 	*count = i;
 	numbers = malloc(sizeof(long) * *count);
 	if (numbers == NULL)
-		return (NULL);
-	i = 0;
-	while (tokens[i] != NULL)
 	{
-		numbers[i] = ft_atol(tokens[i]);
-		i++;
+		free_all(tokens);
+		return (NULL);
 	}
+	if (fill_numbers(numbers, tokens))
+	{
+		free(numbers);
+		free_all(tokens);
+		return (NULL);
+	}
+	free_all(tokens);
+	return (numbers);
+}
+
+long	*parse_args(int argc, char **argv, int *count)
+{
+	long	*numbers;
+	char	*joined;
+
+	joined = join_args(argc, argv);
+	if (joined == NULL)
+		return (NULL);
+	numbers = get_numbers(joined, count);
+	free(joined);
 	return (numbers);
 }
