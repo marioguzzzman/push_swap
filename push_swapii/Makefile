@@ -3,7 +3,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 NAME = push_swap
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = main.c utils.c parsing.c stack.c insert_sorted_b swap.c push.c rotate.c reverse_rotate.c sort_simple.c sort_medium.c sort_complex.c sort_adaptive.c bench.c error.c
+SRCS = main.c utils.c parsing.c stack.c insert_sorted_b.c swap.c push.c rotate.c reverse_rotate.c sort_simple.c sort_medium.c sort_complex.c sort_adaptive.c bench.c error.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
