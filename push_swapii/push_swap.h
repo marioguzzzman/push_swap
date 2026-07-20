@@ -77,6 +77,7 @@ typedef struct s_data
 
 // utils.c
 int		ft_isspace(int c);
+void	put_str_fd(const char *s, int fd);
 void	ft_putnbr_double_fd(double n, int fd);
 int		ft_str_is_number(const char *s);
 
