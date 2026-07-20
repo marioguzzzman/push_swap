@@ -6,24 +6,11 @@
 /*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 15:25:48 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/20 15:27:30 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/20 15:35:26 by dbali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// free_stack: frees every node of *stack and resets it to NULL
-void	free_stack(t_stack **stack)
-{
-	t_stack	*tmp;
-
-	while (stack && *stack)
-	{
-		tmp = (*stack)->next;
-		free(*stack);
-		*stack = tmp;
-	}
-}
 
 // is_sorted: 1 if the stack is already sorted ascending top-to-bottom
 int	is_sorted(t_stack *stack)
@@ -37,20 +24,12 @@ int	is_sorted(t_stack *stack)
 	return (1);
 }
 
-/*
-	assign_indexes: gives every node of stack a its rank (0 = smallest value,
-	size-1 = biggest value) in the node's ->index field
-*/
-void	assign_indexes(t_data *data)
+static long	*stack_to_array(t_data *data, int n)
 {
-	int		n;
 	long	*values;
 	t_stack	*node;
 	int		i;
 
-	n = stack_size(data->a);
-	if (n == 0)
-		return ;
 	values = malloc(sizeof(long) * n);
 	if (!values)
 		exit_error(data);
@@ -61,6 +40,23 @@ void	assign_indexes(t_data *data)
 		values[i++] = node->value;
 		node = node->next;
 	}
+	return (values);
+}
+
+/*
+	assign_indexes: gives every node of stack a its rank (0 = smallest value,
+	size-1 = biggest value) in the node's ->index field
+*/
+void	assign_indexes(t_data *data)
+{
+	int		n;
+	long	*values;
+	t_stack	*node;
+
+	n = stack_size(data->a);
+	if (n == 0)
+		return ;
+	values = stack_to_array(data, n);
 	sort_long_array(values, 0, n - 1);
 	node = data->a;
 	while (node)
