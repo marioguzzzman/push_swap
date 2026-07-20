@@ -49,6 +49,40 @@ do not fit in an `int`, or duplicate values) makes the program print
 `Error` on stderr and exit with a non-zero status without printing any
 operation.
 
+## Architecture
+
+The program is built in four layers. Each layer only depends on the ones
+above it, which is why the four strategies share so much code.
+
+**1. The stack model.** `t_stack` is a *node*, not a container: a singly
+linked list where the head is always the TOP of the stack. `t_data` is the
+single context struct passed to every function — it holds both stacks, the
+per-operation counters, the flags and the disorder ratio. Because every
+operation takes a `t_data *`, no global variable is needed and `--bench` accounting is free: each operation
+increments its own counter as a side effect of performing the move.
+
+**2. Rank substitution.** `assign_indexes` copies the values into a plain
+array, sorts that array, and binary-searches each node's value back out of
+it to obtain its **rank** (0 = smallest, n-1 = biggest), stored in
+`node->index`. Everything above this layer reasons about ranks only, never
+about raw values. This is the pivotal step: it turns "sort arbitrary
+integers" into "sort a permutation of 0..n-1", which is exactly what makes
+chunk boundaries and bitwise radix passes expressible in the first place.
+
+**3. One shared insertion primitive.** `insert_sorted_b` moves the current
+top of `a` onto `b` and keeps `b` sorted descending: it counts how many
+elements at the top of `b` are greater than the incoming value, performs
+that many `rb`, then `pb`, then rotates back with the same number of `rrb`.
+Two of the four strategies are thin wrappers around it — `--simple` is
+"call it n times, then dump `b` back", and `--medium` is "call it n times,
+but visit the elements in chunk order". The strategies are variations on a
+shared routine, not four unrelated programs.
+
+**4. Strategy dispatch.** `run_selected_strategy` in `main.c` selects an
+algorithm from the command-line flag; with no flag it falls through to
+`adaptive_sort`, which selects from the disorder ratio measured *before*
+any move is performed, as the subject requires.
+
 ## Algorithms
 
 Every value is first converted to its **rank** (0 = smallest, n-1 =
@@ -101,14 +135,10 @@ pairs over all pairs, computed *before* any move) is used both to report
 - General references on LSD radix sort and bucket sort used to design the
   stack-based adaptations above.
 
+Radix: https://www.geeksforgeeks.org/dsa/radix-sort/
+
 ## Contributors
 
-- `maguzman`: 
-- `dbali`:
+- `maguzman`: stack/operations core, parsing/validation, error handling, `--bench` reporting.
+- `dbali`:stack/operations core, `--simple`, `--medium`, `--complex` and `--adaptive` strategies,parsing/validation, error handling.`--bench` reporting, testing.
 
-stack/operations core, 
-`--simple`, `--medium`, `--complex` and `--adaptive` strategies,
-parsing/validation, 
-error handling.
-`--bench` reporting, 
-testing
