@@ -6,7 +6,7 @@
 /*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:40:37 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/20 11:00:05 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/20 15:18:19 by dbali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,10 @@ void	ft_putnbr_double_fd(double n, int fd)
 	long	int_part;
 	long	frac_part;
 
-	if (n < 0) // Disorder = 0-1
+	if (n < 0)
 		n = 0;
 	int_part = (long)n;
-
-	// (n - int_part) - keep what after the decimal point
-	// *100 - shift the decimal point 2 digits
-	// +0.5 - round to the nearest int
-	// Example: (long)42.24 = 42
-	//			0.4224 => frac_part = 42
 	frac_part = (long)((n - (double)int_part) * 100 + 0.5);
-
-	// Example: 2.999 -> int_part = 2, frac_part = 100 (wrong)
-	//			Solution: frac_part = 0 and int_part = 3
 	if (frac_part >= 100)
 	{
 		frac_part -= 100;
@@ -82,3 +73,5 @@ int	ft_str_is_number(const char *s)
 	}
 	return (1);
 }
+
+
