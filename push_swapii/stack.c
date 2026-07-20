@@ -1,12 +1,13 @@
 /* ************************************************************************** */
-/*  stack.c                                                                   */
 /*                                                                            */
-/*  Generic linked-list helpers for t_stack (these are internal bookkeeping  */
-/*  helpers, NOT Push_swap "operations" - they never print anything and are  */
-/*  free to use as much as needed without affecting the operation count).    */
-/*  Also provides assign_indexes (ranks every value from 0=smallest to       */
-/*  n-1=biggest so the sorting algorithms can reason with integers) and      */
-/*  compute_disorder (the mandatory disorder metric from the subject).       */
+/*                                                        :::      ::::::::   */
+/*   stack.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/20 11:58:58 by dbali             #+#    #+#             */
+/*   Updated: 2026/07/20 11:58:59 by dbali            ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
@@ -25,7 +26,7 @@ int	stack_size(t_stack *stack)
 	return (count);
 }
 
-// stack_add_top: pushes an already-allocated node onto the top of *tack
+// stack_add_top: pushes an already-allocated node onto the top of *stack
 void	stack_add_top(t_stack **stack, t_stack *new_node)
 {
 	new_node->next = *stack;
@@ -40,16 +41,16 @@ t_stack	*stack_pop_top(t_stack **stack)
 
 	if (!stack || !*stack)
 		return (NULL);
-	top = *stack; // current top node
-	*stack = (*stack)->next; // move the stack pointer to the next node
-	top->next = NULL; // disconnect the removed node
+	top = *stack;
+	*stack = (*stack)->next;
+	top->next = NULL;
 	return (top);
 }
 
 // free_stack: frees every node of *stack and resets it to NULL
 void	free_stack(t_stack **stack)
 {
-	t_stack	*tmp; // temp pointer to remember the next node before freeing the current 
+	t_stack	*tmp;
 
 	while (stack && *stack)
 	{
@@ -77,27 +78,27 @@ int	is_sorted(t_stack *stack)
 */
 static void	sort_long_array(long *arr, int lo, int hi)
 {
-	long	pivot; // divides the array into two groups
-	int		i; // mover forward looking for values too large
-	int		j; // moves backward looking for values to small
-	long	tmp; // temp for swapping two values
+	long	pivot;
+	int		i;
+	int		j;
+	long	tmp;
 
 	if (lo >= hi)
 		return ;
-	pivot = arr[(lo + hi) / 2]; // the middle element
+	pivot = arr[(lo + hi) / 2];
 	i = lo;
 	j = hi;
-	while (i <= j) // continue until i and j cross
+	while (i <= j)
 	{
 		while (arr[i] < pivot)
 			i++;
 		while (arr[j] > pivot)
 			j--;
-		if (i <= j) // if i and j have not crossed, the values are on the wrong side so swap them
+		if (i <= j)
 		{
-			tmp = arr[i]; // save arr[i]
-			arr[i] = arr[j]; // move arr[j] into arr[i]
-			arr[j] = tmp; // put the old arr[i] into arr[j]
+			tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
 			i++;
 			j--;
 		}
@@ -106,12 +107,7 @@ static void	sort_long_array(long *arr, int lo, int hi)
 	sort_long_array(arr, i, hi);
 }
 
-/* 
-	binary_search: returns the index of value inside the sorted array
-		- sorted - sorted array
-		- n - number of elems in the array
-		- value - the number to find
-*/
+// binary_search: returns the index of value inside the sorted array
 static int	binary_search(long *sorted, int n, long value)
 {
 	int	lo;
@@ -122,15 +118,15 @@ static int	binary_search(long *sorted, int n, long value)
 	hi = n - 1;
 	while (lo <= hi)
 	{
-		mid = (lo + hi) / 2; // middle posiion
-		if (sorted[mid] == value) // if found the value, return its index
+		mid = (lo + hi) / 2;
+		if (sorted[mid] == value)
 			return (mid);
-		else if (sorted[mid] < value) // if value > mid, search the other half
+		else if (sorted[mid] < value)
 			lo = mid + 1;
 		else
 			hi = mid - 1;
 	}
-	return (-1); // if no value found
+	return (-1);
 }
 
 /*
@@ -139,27 +135,27 @@ static int	binary_search(long *sorted, int n, long value)
 */
 void	assign_indexes(t_data *data)
 {
-	int		n; // number of nodes
-	long	*values; // for stack values
-	t_stack	*node; // pointer to walk through the linked list
+	int		n;
+	long	*values;
+	t_stack	*node;
 	int		i;
 
 	n = stack_size(data->a);
-	if (n == 0) // if stack is empty
+	if (n == 0)
 		return ;
-	values = malloc(sizeof(long) * n); 
+	values = malloc(sizeof(long) * n);
 	if (!values)
 		exit_error(data);
-	node = data->a; // start at top
+	node = data->a;
 	i = 0;
-	while (node) // fill the array
+	while (node)
 	{
 		values[i++] = node->value;
 		node = node->next;
 	}
-	sort_long_array(values, 0, n - 1); // sort the array
+	sort_long_array(values, 0, n - 1);
 	node = data->a;
-	while (node) // assign indexes
+	while (node)
 	{
 		node->index = binary_search(values, n, node->value);
 		node = node->next;
@@ -167,17 +163,21 @@ void	assign_indexes(t_data *data)
 	free(values);
 }
 
-// compute_disorder: calculate how unsorted a stack is
+/*
+	compute_disorder: implements the mandatory disorder metric from the
+	subject exactly as specified (ratio of out-of-order pairs over all
+	pairs), computed BEFORE any move is performed.
+*/
 double	compute_disorder(t_stack *stack)
 {
-	int		mistakes; // when 1st > 2nd
+	int		mistakes;
 	long	total_pairs;
-	t_stack	*i; // 1st elem
-	t_stack	*j; // 2nd elem
+	t_stack	*i;
+	t_stack	*j;
 
 	mistakes = 0;
 	total_pairs = 0;
-	i = stack; // 1st node
+	i = stack;
 	while (i)
 	{
 		j = i->next;

@@ -6,11 +6,12 @@
 /*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:18:50 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/13 14:34:01 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/20 12:07:21 by dbali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft/libft.h"
 
 // op_pa: move the top of b onto the top of a. Does nothing if b is empty
 void	op_pa(t_data *d)

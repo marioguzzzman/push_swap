@@ -6,11 +6,12 @@
 /*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:08:44 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/13 14:08:56 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/20 11:07:35 by dbali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft/libft.h"
 
 // exit_error: never returns
 void	exit_error(t_data *data)

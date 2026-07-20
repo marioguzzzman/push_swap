@@ -6,11 +6,12 @@
 /*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:09:38 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/13 14:10:49 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/20 11:03:21 by dbali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft/libft.h"
 
 // total_ops: sums every counter in d->ops into the grand total
 static int	total_ops(t_opcount *ops)

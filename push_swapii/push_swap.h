@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/16 17:08:30 by dbali             #+#    #+#             */
+/*   Updated: 2026/07/20 11:01:10 by dbali            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -7,10 +19,13 @@
 
 /*
 	t_stack: one node of a stack, implemented as a singly linked list.
-		value - the number stored in this node (given by user).
+		value - the number stored in this node.
 		index - the position of this value inside the whole data set
-	            (0 = smallest, size-1 = biggest).
-		next - pointer to the next node (below the current one). The head of the list is always the TOP of the stack.
+	            (0 = smallest, size-1 = biggest) if the whole set were
+	         	sorted. This lets every algorithm reason about ordering using
+	            plain integers instead of comparing raw values everywhere.
+		next - pointer to the node underneath this one (towards the bottom of
+	         the stack). The head of the list is always the TOP of the stack.
 */
 typedef struct s_stack
 {
@@ -20,13 +35,13 @@ typedef struct s_stack
 }	t_stack;
 
 /*
-	t_opcount: the total of every push_swap operation completed,
+	t_opcount: keeps a running total of every push_swap operation completed,
 	used only for the --bench report.
 */
 typedef struct s_opcount
 {
-	int	sa; // Number of sa operations performed
-	int	sb; // ...
+	int	sa;
+	int	sb;
 	int	ss;
 	int	pa;
 	int	pb;
@@ -50,37 +65,33 @@ typedef struct s_opcount
 */
 typedef struct s_data
 {
-	t_stack		*a; // Stack a
-	t_stack		*b; // Stack b
-	t_opcount	ops; // Counters of ops performed
-	int			bench; // 1 if --bench passed, 0 otherwise
-	int			mute; // 1 to silence normal op printing
-	const char	*strategy; // Which algorithm was used
-	const char	*complexity; // Hig O of that strategy 
-	double		disorder; // Disorder 0-1
+	t_stack		*a;
+	t_stack		*b;
+	t_opcount	ops;
+	int			bench;
+	int			mute;
+	const char	*strategy;
+	const char	*complexity;
+	double		disorder;
 }	t_data;
 
 // utils.c
-size_t	ft_strlen(const char *s);
-int		ft_isdigit(int c);
 int		ft_isspace(int c);
-void	ft_putstr_fd(const char *s, int fd);
-void	ft_putnbr_fd(long n, int fd);
-void	ft_putnbr_double_fd(double n, int fd); // For disorder
-int		ft_str_is_number(const char *s); // For the string
+void	ft_putnbr_double_fd(double n, int fd);
+int		ft_str_is_number(const char *s);
 
 // parsing.c - turns argv into a validated stack a
-int		parse_arguments(int argc, char **argv, t_data *data); // Read argv/argc
-int		ft_strncmp_local(const char *a, const char *b); // strcmp()
+int		parse_arguments(int argc, char **argv, t_data *data);
+int		ft_strncmp_local(const char *a, const char *b);
 
 // stack.c - stack helpers
-int		stack_size(t_stack *stack); // Counts stack nodes
-void	stack_add_top(t_stack **stack, t_stack *new_node); // Insert at the top
-t_stack	*stack_pop_top(t_stack **stack); // Remove the top
-void	free_stack(t_stack **stack); // Free the stack
-int		is_sorted(t_stack *stack); // 1 if stack is sorted, 0 otherwise
-void	assign_indexes(t_data *data); // Goes through data->a and assigns index to each value
-double	compute_disorder(t_stack *stack); // Calculate disorder
+int		stack_size(t_stack *stack);
+void	stack_add_top(t_stack **stack, t_stack *new_node);
+t_stack	*stack_pop_top(t_stack **stack);
+void	free_stack(t_stack **stack);
+int		is_sorted(t_stack *stack);
+void	assign_indexes(t_data *data);
+double	compute_disorder(t_stack *stack);
 
 // operations
 void	op_sa(t_data *d);
@@ -109,9 +120,9 @@ void	complex_sort(t_data *d);
 void	adaptive_sort(t_data *d);
 
 // bench.c - --bench report
-void	print_bench(t_data *d); // Summary report
+void	print_bench(t_data *d);
 
 // error.c
-void	exit_error(t_data *data); // Printd "Error\n"
+void	exit_error(t_data *data);
 
 #endif

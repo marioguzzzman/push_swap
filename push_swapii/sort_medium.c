@@ -6,18 +6,16 @@
 /*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:04:09 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/13 14:05:15 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/16 17:10:07 by dbali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// int_sqrt_ceil: how many buckets we need. For n numbers, we need sqrt(n) chunks.
-// n = number of elements.
-// if 100 nums, we need 10 buckets.
+// int_sqrt_ceil: smallest integer r such that r*r >= n (n >= 0)
 static int	int_sqrt_ceil(int n)
 {
-	int	r; // smallest num
+	int	r;
 
 	r = 0;
 	while (r * r < n)
@@ -35,7 +33,9 @@ static int	chunk_of(int index, int chunk_size)
 }
 
 /*
-	count_chunk_members: how many elements currently in a belong to a chunk.
+	count_chunk_members: how many elements currently in a belong to chunk c.
+	Needed up-front so the scan-and-push loop below knows exactly how many
+	matches to expect and can stop deterministically.
 */
 static int	count_chunk_members(t_stack *a, int c, int chunk_size)
 {
@@ -54,28 +54,28 @@ static int	count_chunk_members(t_stack *a, int c, int chunk_size)
 // medium_sort: O(n*sqrt(n)) chunk-based
 void	medium_sort(t_data *d)
 {
-	int	n; // number of elements in a
-	int	num_chunks; // number of chunks
-	int	chunk_size; // how many indexes in one chunk
-	int	c; // chunk no
-	int	target; // how many indexes belong in the current chunk
-	int	processed; // how many numbers from the current chunk have already been moved to b
+	int	n;
+	int	num_chunks;
+	int	chunk_size;
+	int	c;
+	int	target;
+	int	processed;
 
-	n = stack_size(d->a); // get stack size
-	if (n < 2) // nothing to sort
+	n = stack_size(d->a);
+	if (n < 2)
 		return ;
-	num_chunks = int_sqrt_ceil(n); 
-	if (num_chunks < 1) // div problems
+	num_chunks = int_sqrt_ceil(n);
+	if (num_chunks < 1)
 		num_chunks = 1;
 	chunk_size = (n + num_chunks - 1) / num_chunks;
 	c = 0;
-	while (c < num_chunks) // start at the smallest chunk
+	while (c < num_chunks)
 	{
-		target = count_chunk_members(d->a, c, chunk_size); 
+		target = count_chunk_members(d->a, c, chunk_size);
 		processed = 0;
-		while (processed < target) // find chunk members
+		while (processed < target)
 		{
-			if (chunk_of(d->a->index, chunk_size) == c) // is the top element part of this chunk
+			if (chunk_of(d->a->index, chunk_size) == c)
 			{
 				insert_sorted_b(d);
 				processed++;

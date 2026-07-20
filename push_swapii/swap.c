@@ -6,26 +6,27 @@
 /*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:18:02 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/13 14:33:35 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/20 12:05:31 by dbali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft/libft.h"
 
 // op_sa: swap the two top elements of stack a
 void	op_sa(t_data *d)
 {
-	t_stack	*first; // stores the original top node
+	t_stack	*first;
 
-	if (!d->a || !d->a->next) // if no second node
+	if (!d->a || !d->a->next)
 		return ;
-	first = d->a; // save current top node
-	d->a = first->next; // head points to second node
-	first->next = d->a->next; // connect old first node to the node after
-	d->a->next = first; // put the old first node after the new top
+	first = d->a;
+	d->a = first->next;
+	first->next = d->a->next;
+	d->a->next = first;
 	if (!d->mute)
-		ft_putstr_fd("sa\n", 1); // print op
-	d->ops.sa++; // record sa for benchmarking
+		ft_putstr_fd("sa\n", 1);
+	d->ops.sa++;
 }
 
 // op_sb: swap the two top elements of stack b
