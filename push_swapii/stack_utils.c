@@ -24,6 +24,11 @@ int	is_sorted(t_stack *stack)
 	return (1);
 }
 
+/*
+	stack_to_array(): Converts a stack to array 
+	to assign indexes to each node without modifying 
+	the original stack
+*/
 static long	*stack_to_array(t_data *data, int n)
 {
 	long	*values;
