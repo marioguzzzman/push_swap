@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
+/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 15:25:48 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/20 15:35:26 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/20 17:35:11 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,54 +22,6 @@ int	is_sorted(t_stack *stack)
 		stack = stack->next;
 	}
 	return (1);
-}
-
-/*
-	stack_to_array(): Converts a stack to array 
-	to assign indexes to each node without modifying 
-	the original stack
-*/
-static long	*stack_to_array(t_data *data, int n)
-{
-	long	*values;
-	t_stack	*node;
-	int		i;
-
-	values = malloc(sizeof(long) * n);
-	if (!values)
-		exit_error(data);
-	node = data->a;
-	i = 0;
-	while (node)
-	{
-		values[i++] = node->value;
-		node = node->next;
-	}
-	return (values);
-}
-
-/*
-	assign_indexes: gives every node of stack a its rank (0 = smallest value,
-	size-1 = biggest value) in the node's ->index field
-*/
-void	assign_indexes(t_data *data)
-{
-	int		n;
-	long	*values;
-	t_stack	*node;
-
-	n = stack_size(data->a);
-	if (n == 0)
-		return ;
-	values = stack_to_array(data, n);
-	sort_long_array(values, 0, n - 1);
-	node = data->a;
-	while (node)
-	{
-		node->index = binary_search(values, n, node->value);
-		node = node->next;
-	}
-	free(values);
 }
 
 /*
