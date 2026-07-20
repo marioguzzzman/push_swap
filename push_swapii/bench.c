@@ -24,7 +24,7 @@ static int	total_ops(t_opcount *ops)
 static void	print_op_line(const char *name, int count)
 {
 	ft_putstr_fd("  ", 2);
-	ft_putstr_fd(name, 2);
+	put_str_fd(name, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putnbr_fd(count, 2);
 	ft_putstr_fd("\n", 2);
@@ -42,9 +42,9 @@ void	print_bench(t_data *d)
 	ft_putnbr_double_fd(d->disorder * 100.0, 2);
 	ft_putstr_fd("%\n", 2);
 	ft_putstr_fd("strategy: ", 2);
-	ft_putstr_fd(d->strategy, 2);
+	put_str_fd(d->strategy, 2);
 	ft_putstr_fd(" (", 2);
-	ft_putstr_fd(d->complexity, 2);
+	put_str_fd(d->complexity, 2);
 	ft_putstr_fd(")\n", 2);
 	ft_putstr_fd("total operations: ", 2);
 	ft_putnbr_fd(total_ops(&d->ops), 2);
