@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
+/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:40:37 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/20 15:18:19 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/20 17:16:22 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@
 int	ft_isspace(int c)
 {
 	return (c == ' ' || c == '\t' || c == '\n');
+}
+
+/*
+	put_str_fd: const-correct front-end to libft's ft_putstr_fd.
+	The strings this program prints (strategy names, complexity labels) are
+	string literals, so t_data holds them as const char * — writing through
+	such a pointer is undefined behaviour and the const makes the compiler
+	enforce that. libft predates const-correctness and declares
+	ft_putstr_fd(char *, int) even though it never modifies the string, so
+	the cast is unavoidable; it is isolated here rather than repeated at
+	every call site.
+*/
+void	put_str_fd(const char *s, int fd)
+{
+	ft_putstr_fd((char *)s, fd);
 }
 
 /*
@@ -73,5 +88,3 @@ int	ft_str_is_number(const char *s)
 	}
 	return (1);
 }
-
-
