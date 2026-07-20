@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dbali <dbali@student.42.fr>                +#+  +:+       +#+         #
+#    By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/13 14:32:00 by dbali             #+#    #+#              #
-#    Updated: 2026/07/20 10:59:47 by dbali            ###   ########.fr        #
+#    Updated: 2026/07/20 17:40:04 by maguzman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 NAME = push_swap
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = main.c utils.c parsing.c stack.c insert_sorted_b.c swap.c push.c rotate.c reverse_rotate.c sort_simple.c sort_medium.c sort_complex.c sort_adaptive.c bench.c error.c
+SRCS = main.c utils.c parsing.c rank.c stack.c stack_utils.c stack_manipulation.c insert_sorted_b.c swap.c push.c rotate.c reverse_rotate.c sort_simple.c sort_medium.c sort_complex.c sort_adaptive.c bench.c error.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
