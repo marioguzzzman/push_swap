@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_medium.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
+/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:04:09 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/16 17:10:07 by dbali            ###   ########.fr       */
+/*   Updated: 2026/07/21 16:55:51 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,26 @@ static int	count_chunk_members(t_stack *a, int c, int chunk_size)
 	return (count);
 }
 
+// move every element of chunk c out of a and into b, keeping b sorted.
+static	void	move_chunk_keep_sorted(t_data *d, int c, int chunk_size)
+{
+	int	target;
+	int	processed;
+
+	target = count_chunk_members(d->a, c, chunk_size);
+	processed = 0;
+	while (processed < target)
+	{
+		if (chunk_of(d->a->rank, chunk_size) == c)
+		{
+			insert_sorted_b(d);
+			processed++;
+		}
+		else
+			op_ra(d);
+	}
+}
+
 // medium_sort: O(n*sqrt(n)) chunk-based
 void	medium_sort(t_data *d)
 {
@@ -60,8 +80,6 @@ void	medium_sort(t_data *d)
 	int	num_chunks;
 	int	chunk_size;
 	int	c;
-	int	target;
-	int	processed;
 
 	n = stack_size(d->a);
 	if (n < 2)
@@ -73,18 +91,7 @@ void	medium_sort(t_data *d)
 	c = 0;
 	while (c < num_chunks)
 	{
-		target = count_chunk_members(d->a, c, chunk_size);
-		processed = 0;
-		while (processed < target)
-		{
-			if (chunk_of(d->a->rank, chunk_size) == c)
-			{
-				insert_sorted_b(d);
-				processed++;
-			}
-			else
-				op_ra(d);
-		}
+		move_chunk_keep_sorted(d, c, chunk_size);
 		c++;
 	}
 	while (d->b)
