@@ -61,22 +61,30 @@ per-operation counters, the flags and the disorder ratio. Because every
 operation takes a `t_data *`, no global variable is needed and `--bench` accounting is free: each operation
 increments its own counter as a side effect of performing the move.
 
-**2. Rank substitution.** `assign_indexes` copies the values into a plain
-array, sorts that array, and binary-searches each node's value back out of
-it to obtain its **rank** (0 = smallest, n-1 = biggest), stored in
+**2. Rank substitution.** `assign_indexes` (`rank.c`) does this in three
+steps: `stack_to_array` copies every node's value into a plain `long`
+array without touching the stack, `sort_long_array` quicksorts that copy,
+and then, for each node still on `a`, `binary_search` looks its value up
+in the sorted copy — the index it lands on *is* the rank, written into
 `node->index`. Everything above this layer reasons about ranks only, never
 about raw values. This is the pivotal step: it turns "sort arbitrary
 integers" into "sort a permutation of 0..n-1", which is exactly what makes
 chunk boundaries and bitwise radix passes expressible in the first place.
 
-**3. Shared insertion primitive.** `insert_sorted_b` moves the current
-top of `a` onto `b` and keeps `b` sorted descending: it counts how many
-elements at the top of `b` are greater than the incoming value, performs
-that many `rb`, then `pb`, then rotates back with the same number of `rrb`.
-Two of the four strategies are thin wrappers around it — `--simple` is
-"call it n times, then dump `b` back", and `--medium` is "call it n times,
-but visit the elements in chunk order". The strategies are variations on a
-shared routine, not four unrelated programs.
+**3. Shared insertion primitive.** `insert_sorted_b` (`insert_sorted_b.c`)
+moves the current top of `a` onto `b` and keeps `b` sorted descending. It
+walks down `b` counting `count_greater`, the elements whose value is
+still bigger than the incoming one, `rb`-rotates past exactly that many,
+`pb`s the value into the gap that opens up right below them, then
+`rrb`-rotates the same count back to restore `b`'s order. The cost of one
+insertion is proportional to `count_greater`, not to `size(b)` — which is
+why `--medium` visiting elements in chunk order (so `count_greater` never
+exceeds the current chunk) is cheaper than `--simple` visiting them in
+whatever order `a` happens to hold them. Two of the four strategies are
+thin wrappers around this one routine — `--simple` is "call it n times,
+then dump `b` back", and `--medium` is "call it n times, but visit the
+elements in chunk order". The strategies are variations on a shared
+routine, not four unrelated programs.
 
 **4. Strategy dispatch.** `run_selected_strategy` in `main.c` selects an
 algorithm from the command-line flag; with no flag it falls through to
