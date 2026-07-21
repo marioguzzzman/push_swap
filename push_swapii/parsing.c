@@ -191,7 +191,7 @@ static int	build_stack_from_values(t_data *data, long *values, int n)
 		if (!node)
 			return (0);
 		node->value = values[i];
-		node->index = 0;
+		node->rank = 0;
 		node->next = NULL;
 		stack_add_top(&data->a, node);
 		i--;

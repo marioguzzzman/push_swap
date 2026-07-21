@@ -76,9 +76,10 @@ static int	binary_search(long *sorted, int n, long value)
 }
 
 /*
-	stack_to_array(): Converts a stack to array 
-	to assign indexes to each node without modifying 
-	the original stack
+	stack_to_array(): copies every value of the stack into a plain array,
+	leaving the stack itself untouched. The array is scratch space: it exists
+	only because binary_search needs O(1) random access (sorted[mid]), which a
+	linked list cannot provide. It is freed as soon as the ranks are written.
 */
 static long	*stack_to_array(t_data *data, int n)
 {
@@ -100,10 +101,10 @@ static long	*stack_to_array(t_data *data, int n)
 }
 
 /*
-	assign_indexes: gives every node of stack a its rank (0 = smallest value,
-	size-1 = biggest value) in the node's ->index field
+	assign_ranks: gives every node of stack a its rank (0 = smallest value,
+	size-1 = biggest value) in the node's ->rank field
 */
-void	assign_indexes(t_data *data)
+void	assign_ranks(t_data *data)
 {
 	int		n;
 	long	*values;
@@ -117,7 +118,7 @@ void	assign_indexes(t_data *data)
 	node = data->a;
 	while (node)
 	{
-		node->index = binary_search(values, n, node->value);
+		node->rank = binary_search(values, n, node->value);
 		node = node->next;
 	}
 	free(values);

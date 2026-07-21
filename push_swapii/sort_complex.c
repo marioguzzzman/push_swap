@@ -43,7 +43,7 @@ void	complex_sort(t_data *d)
 		i = 0;
 		while (i < count)
 		{
-			if (((d->a->index >> bit) & 1) == 1)
+			if (((d->a->rank >> bit) & 1) == 1)
 				op_ra(d);
 			else
 				op_pb(d);

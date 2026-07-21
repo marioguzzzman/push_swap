@@ -24,12 +24,14 @@ static int	int_sqrt_ceil(int n)
 }
 
 /*
-	chunk_of: returns which chunk a rank (node->index) belongs to, given the
-	chosen chunk_size. Chunk 0 holds the smallest values.
+	chunk_of: returns which chunk a rank (node->rank) belongs to, given the
+	chosen chunk_size. Chunk 0 holds the smallest values. This plain division
+	only slices evenly because ranks are dense in [0, n-1]; the raw values are
+	not, so the same division on values would be meaningless.
 */
-static int	chunk_of(int index, int chunk_size)
+static int	chunk_of(int rank, int chunk_size)
 {
-	return (index / chunk_size);
+	return (rank / chunk_size);
 }
 
 /*
@@ -44,7 +46,7 @@ static int	count_chunk_members(t_stack *a, int c, int chunk_size)
 	count = 0;
 	while (a)
 	{
-		if (chunk_of(a->index, chunk_size) == c)
+		if (chunk_of(a->rank, chunk_size) == c)
 			count++;
 		a = a->next;
 	}
@@ -75,7 +77,7 @@ void	medium_sort(t_data *d)
 		processed = 0;
 		while (processed < target)
 		{
-			if (chunk_of(d->a->index, chunk_size) == c)
+			if (chunk_of(d->a->rank, chunk_size) == c)
 			{
 				insert_sorted_b(d);
 				processed++;

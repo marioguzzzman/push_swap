@@ -20,17 +20,19 @@
 /*
 	t_stack: one node of a stack, implemented as a singly linked list.
 		value - the number stored in this node.
-		index - the position of this value inside the whole data set
-	            (0 = smallest, size-1 = biggest) if the whole set were
-	         	sorted. This lets every algorithm reason about ordering using
-	            plain integers instead of comparing raw values everywhere.
+		rank - where this value would sit if the WHOLE input were sorted
+	            (0 = smallest, size-1 = biggest). This is NOT the node's
+	            position in the stack: it is decided by the value alone and
+	            never changes once assigned. It lets every algorithm reason
+	            about ordering using dense integers in [0, size-1] instead of
+	            comparing arbitrary raw values everywhere.
 		next - pointer to the node underneath this one (towards the bottom of
 	         the stack). The head of the list is always the TOP of the stack.
 */
 typedef struct s_stack
 {
 	long				value;
-	int					index;
+	int					rank;
 	struct s_stack		*next;
 }	t_stack;
 
@@ -91,7 +93,7 @@ void	stack_add_top(t_stack **stack, t_stack *new_node);
 t_stack	*stack_pop_top(t_stack **stack);
 void	free_stack(t_stack **stack);
 int		is_sorted(t_stack *stack);
-void	assign_indexes(t_data *data);
+void	assign_ranks(t_data *data);
 double	compute_disorder(t_stack *stack);
 
 // operations

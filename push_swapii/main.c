@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 	data.disorder = 0.0;
 	if (!parse_arguments(argc, argv, &data))
 		return (0);
-	assign_indexes(&data);
+	assign_ranks(&data);
 	data.disorder = compute_disorder(data.a);
 	if (is_sorted(data.a))
 	{
