@@ -74,14 +74,11 @@ points at.
   primitives (`rb` × k, `pb`, `rrb` × k). It is a reusable building block
   for the strategy layer, not part of the instruction set.
 
-Where this README says "the shared insertion primitive" it means the second
-sense.
-
-**Rank (not index).** `node->rank` is where a value would sit **if the whole
+**Rank** `node->rank` is where a value would sit **if the whole
 input were sorted**: 0 = smallest, n-1 = biggest. It is decided by the value
 alone and never changes once assigned.
 
-It is emphatically *not* the node's position in the stack. For input
+Example:
 `4 67 3 87 23`:
 
 | stack position | value | rank |
@@ -99,9 +96,6 @@ field and never touches a single `next` pointer. The rank is a *label*
 saying where a node belongs; the eleven operations are the only thing that
 can physically move it there. Sorting is complete when the rank column reads
 `0 1 2 3 4` from top to bottom.
-
-(The field was called `index` in earlier revisions. It was renamed because
-"index" invites exactly the position-in-the-stack misreading above.)
 
 ## Architecture
 
@@ -145,7 +139,7 @@ per lookup at n=500 rather than 500. And because the array is sorted, the
 position returned *is* the rank by definition.
 
 Everything above this layer reasons about ranks only, never about raw
-values — see "Why ranks?" below for why that substitution is what makes the
+values. This substitution is what makes the
 other three strategies expressible at all.
 
 **3. Shared insertion primitive.** `insert_sorted_b` (`insert_sorted_b.c`)
