@@ -54,7 +54,7 @@ operation.
 The program is built in four layers. Each layer only depends on the ones
 above it, which is why the four strategies share so much code.
 
-**1. The stack model.** `t_stack` is a *node*, not a container: a singly
+**1. Stack model.** `t_stack` is a *node*, not a container: a singly
 linked list where the head is always the TOP of the stack. `t_data` is the
 single context struct passed to every function — it holds both stacks, the
 per-operation counters, the flags and the disorder ratio. Because every
@@ -69,7 +69,7 @@ about raw values. This is the pivotal step: it turns "sort arbitrary
 integers" into "sort a permutation of 0..n-1", which is exactly what makes
 chunk boundaries and bitwise radix passes expressible in the first place.
 
-**3. One shared insertion primitive.** `insert_sorted_b` moves the current
+**3. Shared insertion primitive.** `insert_sorted_b` moves the current
 top of `a` onto `b` and keeps `b` sorted descending: it counts how many
 elements at the top of `b` are greater than the incoming value, performs
 that many `rb`, then `pb`, then rotates back with the same number of `rrb`.
