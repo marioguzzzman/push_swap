@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:46:46 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/22 17:58:03 by maguzman         ###   ########.fr       */
+/*   Updated: 2026/07/22 18:03:07 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,13 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 	char	**tokens;
 	long	*values;
 	int		n;
-	int		i;
 
 	data->strategy = "adaptive";
 	data->bench = 0;
 	n = 0;
-	i = 1;
-	while (i < argc)
-	{
-		if (!is_flag(argv[i], data))
-			n++;
-		i++;
-	}
+	tokens = collect_tokens(&n, argc, argv, data);
 	if (n == 0)
 		return (0);
-	tokens = collect_tokens(&n, argc, argv, data);
 	values = malloc(sizeof(long)*n);
 	if (!values)
 		exit_error(data);
