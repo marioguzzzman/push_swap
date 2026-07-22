@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
+/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/16 17:08:30 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/20 11:01:10 by dbali            ###   ########.fr       */
+/*   Created: 2026/07/16 17:08:30 by maguzman          #+#    #+#             */
+/*   Updated: 2026/07/22 17:14:25 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@
 # include <limits.h>
 
 /*
-	t_stack: one node of a stack, implemented as a singly linked list.
-		value - the number stored in this node.
-		rank - where this value would sit if the WHOLE input were sorted
-	            (0 = smallest, size-1 = biggest). This is NOT the node's
-	            position in the stack: it is decided by the value alone and
-	            never changes once assigned. It lets every algorithm reason
-	            about ordering using dense integers in [0, size-1] instead of
-	            comparing arbitrary raw values everywhere.
-		next - pointer to the node underneath this one (towards the bottom of
-	         the stack). The head of the list is always the TOP of the stack.
+t_stack: one node of a stack, implemented as a singly linked list.
+value - the number stored in this node.
+rank - where this value would sit if the WHOLE input were sorted
+(0 = smallest, size-1 = biggest). This is NOT the node's
+position in the stack: it is decided by the value alone and
+never changes once assigned. It lets every algorithm reason
+about ordering using dense integers in [0, size-1] instead of
+comparing arbitrary raw values everywhere.
+next - pointer to the node underneath this one (towards the bottom of
+the stack). The head of the list is always the TOP of the stack.
 */
 typedef struct s_stack
 {
-	long				value;
-	int					rank;
-	struct s_stack		*next;
+	long			value;
+	int				rank;
+	struct s_stack	*next;
 }	t_stack;
 
 /*
-	t_opcount: keeps a running total of every push_swap operation completed,
-	used only for the --bench report.
+t_opcount: keeps a running total of every push_swap operation completed,
+used only for the --bench report.
 */
 typedef struct s_opcount
 {
@@ -56,14 +56,14 @@ typedef struct s_opcount
 }	t_opcount;
 
 /*
-	t_data: the single "context" structure passed around the program.
-		a, b - the two stacks.
-		ops - operation counters, updated by every function in 
-			  /operations every time it actually performs a move.
-		bench - 1 if the --bench flag was included.
-		strategy - the strategy that was used (s, m, c, or a).
-		complexity - human readable complexity class of that strategy.
-		disorder - disorder ratio of the initial stack a, in [0, 1].
+t_data: the single "context" structure passed around the program.
+a, b - the two stacks.
+ops - operation counters, updated by every function in
+/operations every time it actually performs a move.
+bench - 1 if the --bench flag was included.
+strategy - the strategy that was used (s, m, c, or a).
+complexity - human readable complexity class of that strategy.
+disorder - disorder ratio of the initial stack a, in [0, 1].
 */
 typedef struct s_data
 {
@@ -84,8 +84,16 @@ void	ft_putnbr_double_fd(double n, int fd);
 int		ft_str_is_number(const char *s);
 
 // parsing.c - turns argv into a validated stack a
+int		is_flag(const char *arg, t_data *data);
 int		parse_arguments(int argc, char **argv, t_data *data);
 int		ft_strncmp_local(const char *a, const char *b);
+int		has_duplicate(long *values, int n);
+int		build_stack_from_values(t_data *data, long *values, int n);
+char	**split_whitespace(const char *s);
+long	token_to_long(const char *s, int *ok);
+int		count_tokens(const char *s);
+char	**split_needed(int *n, char **tokens);
+char	**collect_tokens(int *n, int argc, char **argv, t_data *data);
 
 // stack.c - stack helpers
 int		stack_size(t_stack *stack);
