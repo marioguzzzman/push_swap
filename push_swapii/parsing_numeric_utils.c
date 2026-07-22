@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 13:01:53 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/22 13:08:28 by maguzman         ###   ########.fr       */
+/*   Updated: 2026/07/22 17:52:08 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,23 @@ int	build_stack_from_values(t_data *data, long *values, int n)
 		i--;
 	}
 	return (1);
+}
+
+int	validate(int n, long *values, char **tokens)
+{
+	int	i;
+	int	ok;
+
+	i = 0;
+	while (i < n)
+	{
+		if (!ft_str_is_number(tokens[i]))
+			return (1);
+		ok = 1;
+		values[i] = token_to_long(tokens[i], &ok);
+		if (!ok)
+			return (1);
+		i++;
+	}
+	return (0);
 }

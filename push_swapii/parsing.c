@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:46:46 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/22 17:11:54 by maguzman         ###   ########.fr       */
+/*   Updated: 2026/07/22 17:58:03 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	is_flag(const char *arg, t_data *data)
 		return (0);
 	return (1);
 }
-
-// ft_strncmp_local: strcmp replacement
 
 int	ft_strncmp_local(const char *a, const char *b)
 {
@@ -71,7 +69,6 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 	long	*values;
 	int		n;
 	int		i;
-	int		ok;
 
 	data->strategy = "adaptive";
 	data->bench = 0;
@@ -89,21 +86,10 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 	values = malloc(sizeof(long)*n);
 	if (!values)
 		exit_error(data);
-	i = 0;
-	//move this to clean up block
-	while (i < n)
-	{
-		if (!ft_str_is_number(tokens[i]))
-			exit_error(data);
-		ok = 1;
-		values[i] = token_to_long(tokens[i], &ok);
-		if (!ok)
-			exit_error(data);
-		i++;
-	}
+	if (validate(n, values, tokens))
+		exit_error(data);
 	if (has_duplicate(values, n))
 		exit_error(data);
-	//move this to clean up block
 	if (!build_stack_from_values(data, values, n))
 		exit_error(data);
 	free(values);

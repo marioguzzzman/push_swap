@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 17:08:30 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/22 17:14:25 by maguzman         ###   ########.fr       */
+/*   Updated: 2026/07/22 17:52:34 by maguzman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ long	token_to_long(const char *s, int *ok);
 int		count_tokens(const char *s);
 char	**split_needed(int *n, char **tokens);
 char	**collect_tokens(int *n, int argc, char **argv, t_data *data);
+int		validate(int n, long *values, char **tokens);
 
 // stack.c - stack helpers
 int		stack_size(t_stack *stack);
