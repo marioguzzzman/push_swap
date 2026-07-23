@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/22 13:01:09 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/23 11:32:04 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/23 11:51:10 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,9 @@ long	token_to_long(const char *s, int *ok)
 		neg = (s[i] == '-');
 		i++;
 	}
-	while (s[i])
+	while (s[i] && res <= (long) INT_MAX + 1)
 	{
 		res = res * 10 + (s[i] - '0');
-		if (res > (long) INT_MAX + 1)
-		{
-			*ok = 0;
-			return (0);
-		}
 		i++;
 	}
 	if (neg)
