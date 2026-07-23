@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by maguzman, dbali.*
+*This activity has been created as part of the 42 curriculum by maguzman, dbali.*
 
 # push_swap
 
