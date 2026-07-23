@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/13 13:46:46 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/23 12:11:48 by maguzman         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   parsing.c                                         :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/07/13 13:46:46 by maguzman         #+#    #+#              */
+/*   Updated: 2026/07/23 12:14:40 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 	tokens = collect_tokens(&n, argc, argv, data);
 	if (n == 0)
 		return (0);
-	values = malloc(sizeof(long) *n);
+	values = malloc(sizeof(long) * n);
 	if (!values)
 		exit_error(data);
 	if (validate(n, values, tokens))
