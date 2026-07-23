@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/22 13:01:09 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/23 11:51:10 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/23 12:10:39 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,18 +125,10 @@ char	**collect_tokens(int *n, int argc, char **argv, t_data *data)
 	int		i;
 	int		n_local;
 
-	i = 1;
-	n_local = *n;
-	while (i < argc)
-	{
-		if (!is_flag(argv[i], data))
-			n_local++;
-		i++;
-	}
-	tokens = malloc(sizeof(char *) * (n_local + 1));
+	tokens = malloc(sizeof(char *) * ((argc - 1) + 1));
 	if (!tokens)
 		exit_error(data);
-	n_local = 0;
+	n_local = *n;
 	i = 1;
 	while (i < argc)
 	{
