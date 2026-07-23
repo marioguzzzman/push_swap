@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/16 17:08:30 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/22 17:52:34 by maguzman         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   push_swap.h                                       :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/07/16 17:08:30 by maguzman         #+#    #+#              */
+/*   Updated: 2026/07/23 14:46:52 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_data
 	const char	*strategy;
 	const char	*complexity;
 	double		disorder;
+	int			count_only; // remove on live
 }	t_data;
 
 // utils.c
@@ -133,6 +134,7 @@ void	adaptive_sort(t_data *d);
 
 // bench.c - --bench report
 void	print_bench(t_data *d);
+void	print_op_count(t_data *d); // remove on live
 
 // error.c
 void	exit_error(t_data *data);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/13 14:12:38 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/20 12:06:33 by dbali            ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   main.c                                            :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/07/13 14:12:38 by maguzman         #+#    #+#              */
+/*   Updated: 2026/07/23 15:03:00 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ records the human-readable strategy/complexity labels used by --bench.
 Only "adaptive" needs to set these labels itself, since it decides the
 actual algorithm at runtime based on the measured disorder.
 */
+
 static void	run_selected_strategy(t_data *data)
 {
 	if (ft_strncmp_local(data->strategy, "simple") == 0)
@@ -40,15 +41,22 @@ static void	run_selected_strategy(t_data *data)
 		adaptive_sort(data);
 }
 
+/*
+remove data.count_only elements
+*/
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
 	data.a = NULL;
 	data.b = NULL;
-	data.ops = (t_opcount){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	data.ops = (t_opcount)
+	{
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	};
 	data.bench = 0;
 	data.mute = 0;
+	data.count_only = 0;
 	data.strategy = "adaptive";
 	data.complexity = "";
 	data.disorder = 0.0;
@@ -58,6 +66,8 @@ int	main(int argc, char **argv)
 	data.disorder = compute_disorder(data.a);
 	if (is_sorted(data.a))
 	{
+		if (data.count_only)
+			print_op_count(&data);
 		if (data.bench)
 		{
 			data.strategy = "already sorted";
@@ -69,6 +79,8 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	run_selected_strategy(&data);
+	if (data.count_only)
+		print_op_count(&data);
 	if (data.bench)
 		print_bench(&data);
 	free_stack(&data.a);

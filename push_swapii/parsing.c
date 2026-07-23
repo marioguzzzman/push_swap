@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/13 13:46:46 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/23 14:37:11 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/23 14:50:47 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 is_flag: recognises the 5 optional flags this program understands.
 arg: one argv token. Returns 1 if it is a known flag, 0 otherwise.
 */
+// remove on live: the --count-only branch below is a rehearsal stand-in
+// for the "Quick live coding modification" defense exercise.
 
 int	is_flag(const char *arg, t_data *data)
 {
@@ -32,6 +34,11 @@ int	is_flag(const char *arg, t_data *data)
 		data->strategy = "adaptive";
 	else if (ft_strlen(arg) == 7 && !ft_strncmp_local(arg, "--bench"))
 		data->bench = 1;
+	else if (ft_strlen(arg) == 12 && !ft_strncmp_local(arg, "--count-only"))
+	{
+		data->count_only = 1;
+		data->mute = 1;
+	}
 	else
 		return (0);
 	return (1);

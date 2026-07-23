@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bench.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dbali <dbali@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/13 14:09:38 by dbali             #+#    #+#             */
-/*   Updated: 2026/07/20 11:03:21 by dbali            ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   bench.c                                           :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/07/13 14:09:38 by maguzman         #+#    #+#              */
+/*   Updated: 2026/07/23 14:58:20 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 #include "libft/libft.h"
 
 // total_ops: sums every counter in d->ops into the grand total
+
 static int	total_ops(t_opcount *ops)
 {
 	return (ops->sa + ops->sb + ops->ss + ops->pa + ops->pb
 		+ ops->ra + ops->rb + ops->rr + ops->rra + ops->rrb + ops->rrr);
 }
 
+// remove on live: 
+void	print_op_count(t_data *d)
+{
+	ft_putnbr_fd(total_ops(&d->ops), 1);
+	ft_putstr_fd("\n", 1);
+}
+
 // print_op_line: helper to print "   name: count\n" to stderr
+
 static void	print_op_line(const char *name, int count)
 {
 	ft_putstr_fd("  ", 2);
@@ -31,10 +40,11 @@ static void	print_op_line(const char *name, int count)
 }
 
 /*
-	print_bench: prints the disorder percentage, the strategy
-	name and its complexity class, the total operation count, and the
-	per-operation-type breakdown.
+print_bench: prints the disorder percentage, the strategy
+name and its complexity class, the total operation count, and the
+per-operation-type breakdown.
 */
+
 void	print_bench(t_data *d)
 {
 	ft_putstr_fd("--- push_swap benchmark ---\n", 2);
