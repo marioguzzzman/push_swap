@@ -6,7 +6,7 @@
 /*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/07/13 14:06:59 by maguzman         #+#    #+#              */
-/*   Updated: 2026/07/23 16:17:39 by maguzman        ###   ########.fr        */
+/*   Updated: 2026/07/23 16:45:27 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	adaptive_sort(t_data *d)
 	else
 	{
 		d->strategy = "adaptive (complex)";
-		d->complexity = "O(n log n)";
+		d->complexity = "O(n*sqrt(n))";
 		complex_sort(d);
 	}
 }
