@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_token_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maguzman <maguzman@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/22 13:01:09 by maguzman          #+#    #+#             */
-/*   Updated: 2026/07/22 18:34:34 by maguzman         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   parsing_token_utils.c                             :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: maguzman <maguzman@student.42.fr>         #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/07/22 13:01:09 by maguzman         #+#    #+#              */
+/*   Updated: 2026/07/23 11:32:04 by maguzman        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,11 @@ int	count_tokens(const char *s)
 char	**split_whitespace(const char *s)
 {
 	char	**tokens;
-	int		count;
 	int		t;
 	size_t	i;
-	size_t	j;
 	size_t	start;
 
-	count = count_tokens(s);
-	tokens = malloc(sizeof(char *) * (count + 1));
+	tokens = malloc(sizeof(char *) * (count_tokens(s) + 1));
 	if (!tokens)
 		return (NULL);
 	t = 0;
@@ -64,17 +61,7 @@ char	**split_whitespace(const char *s)
 			i++;
 		if (i > start)
 		{
-			tokens[t] = malloc(i - start + 1);
-			if (tokens[t])
-			{
-				j = 0;
-				while (start + j < i)
-				{
-					tokens[t][j] = s[start + j];
-					j++;
-				}
-				tokens[t][j] = '\0';
-			}
+			tokens[t] = ft_substr(s, start, i - start);
 			t++;
 		}
 	}
