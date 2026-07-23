@@ -225,6 +225,20 @@ to drive the adaptive strategy.
   chunks, and insertion costs O(√n) per element over n elements: both
   O(n·√n).
 
+  *Tradeoff* The rotate/push/rotate-back process
+  pays a round trip: `rb` rotates past `count_greater` elements, `pb`
+  inserts, then `rrb` rotates the same elements back making it 2×`count_greater`
+  operations per insertion, not exactly `count_greater`. The restore is not
+  optional: both the *next* insertion's scan (which assumes `b`'s head is
+  the current maximum) and the final unwind (`pa` is called blindly, with
+  no repositioning) depend on `b` staying sorted from the head
+  after every call. if we skip the restore the rotated-away
+  elements migth be silently buried at the tail, corrupting the next lookup and
+  the final output with no error raised. Measured at n=500 (5 random
+  trials), this costs `--medium` ~11,300 operations on average against a
+  12,000 "pass" ceiling, but with less margin than
+  `--complex` leaves at the same n (~6,800).
+
 - **`--complex` (LSD radix sort, O(n·log n)).** Treats each rank as a
   `⌈log2(n)⌉`-bit binary number and sorts it one bit at a time, from the
   least significant bit up: for every element currently in `a`, if the
