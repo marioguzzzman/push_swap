@@ -33,13 +33,13 @@ ra
 pb
 ...
 
-$ ARG="4 67 3 87 23"; ./push_swap --complex $ARG | ./linux_checker $ARG
+$ ARG="4 67 3 87 23"; ./push_swap --complex $ARG | ./checker_linux $ARG
 OK
 
 $ ./push_swap --bench 5 4 3 2 1 >/dev/null
 --- push_swap benchmark ---
 disorder: 100.00%
-strategy: complex (O(n log n))
+strategy: adaptive (complex) (O(n log n))
 total operations: ...
 ```
 
@@ -232,8 +232,8 @@ to drive the adaptive strategy.
   optional: both the *next* insertion's scan (which assumes `b`'s head is
   the current maximum) and the final unwind (`pa` is called blindly, with
   no repositioning) depend on `b` staying sorted from the head
-  after every call. if we skip the restore the rotated-away
-  elements migth be silently buried at the tail, corrupting the next lookup and
+  after every call. If we skip the restore the rotated-away
+  elements might be silently buried at the tail, corrupting the next lookup and
   the final output with no error raised. Measured at n=500 (5 random
   trials), this costs `--medium` ~11,300 operations on average against a
   12,000 "pass" ceiling, but with less margin than
@@ -250,8 +250,13 @@ to drive the adaptive strategy.
   sorted. Each pass touches every element exactly once, so the total cost
   is O(n·log n).
 
-- **`--adaptive` (default).** Picks a strategy from the disorder ratio of
-  the *initial* stack:
+- **`--adaptive` (default).** For n≤3, bypasses disorder entirely and uses
+  a hardcoded decision tree (`sort_two`/`sort_three` in `sort_adaptive.c`). It only applies to the *default* path;
+  `--simple`/`--medium`/`--complex` are left running their general
+  algorithms even at tiny n.
+
+  For n>3, picks a strategy from the disorder ratio of the *initial*
+  stack:
   - `disorder < 0.2` → `sort_simple` (O(n²))
   - `0.2 ≤ disorder < 0.5` → `sort_medium` (O(n·√n))
   - `disorder ≥ 0.5` → `sort_complex` (O(n log n))
@@ -267,6 +272,8 @@ Radix: https://www.geeksforgeeks.org/dsa/radix-sort/
 
 ## Contributors
 
-- `maguzman`: stack/operations core, parsing/validation, error handling, `--bench` reporting.
+- `maguzman`: stack/operations core, parsing/validation, error handling, `--bench` reporting, norm fix, `--adaptive`'s n≤3 small-input path.
 - `dbali`: stack/operations core, `--simple`, `--medium`, `--complex` and `--adaptive` strategies, parsing/validation, error handling, `--bench` reporting, testing.
 
+## Use of AI
+AI was used to explain in a simpler way some of theory behind the algorithms as well as a socratic teacher to explain parts of the code. 
