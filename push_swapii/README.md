@@ -263,12 +263,9 @@ to drive the adaptive strategy.
 
 ## Resources
 
-- 42 project subject (`push_swap`), which specifies the stack operations,
-  the disorder metric and the required complexity classes.
-- General references on LSD radix sort and bucket sort used to design the
-  stack-based adaptations above.
-
 Radix: https://www.geeksforgeeks.org/dsa/radix-sort/
+Radix sort: https://www.youtube.com/watch?v=Y95a-8oNqps&t=318s
+
 
 ## Contributors
 
