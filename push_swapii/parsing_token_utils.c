@@ -109,6 +109,7 @@ char	**split_needed(int *n, char **tokens)
 	if (n_local == 1 && count_tokens(tokens[0]) > 1)
 	{
 		split = split_whitespace(tokens[0]);
+		free(tokens[0]);
 		free(tokens);
 		tokens = split;
 		n_local = 0;
@@ -133,7 +134,12 @@ char	**collect_tokens(int *n, int argc, char **argv, t_data *data)
 	while (i < argc)
 	{
 		if (!is_flag(argv[i], data))
-			tokens[n_local++] = argv[i];
+		{
+			tokens[n_local] = ft_strdup(argv[i]);
+			if (!tokens[n_local])
+				exit_error(data);
+			n_local++;
+		}
 		i++;
 	}
 	tokens[n_local] = NULL;

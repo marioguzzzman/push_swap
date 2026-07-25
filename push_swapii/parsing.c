@@ -59,6 +59,29 @@ int	ft_strncmp_local(const char *a, const char *b)
 }
 
 /*
+free_tokens: every token is an owned heap copy (see collect_tokens), so
+each one is freed individually before the array itself.
+*/
+
+static void	free_tokens(char **tokens, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+		free(tokens[i++]);
+	free(tokens);
+}
+
+static void	parse_exit_error(t_data *data, char **tokens, long *values,
+		int n)
+{
+	free(values);
+	free_tokens(tokens, n);
+	exit_error(data);
+}
+
+/*
 parse_arguments: main function of this file
 - separates flag tokens from numeric tokens,
 - if exactly one non-flag token is given and it contains whitespace or
@@ -82,19 +105,16 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 	tokens = collect_tokens(&n, argc, argv, data);
 	if (n == 0)
 	{
-		free(tokens);
+		free_tokens(tokens, n);
 		return (0);
 	}
 	values = malloc(sizeof(long) * n);
 	if (!values)
-		exit_error(data);
-	if (validate(n, values, tokens))
-		exit_error(data);
-	if (has_duplicate(values, n))
-		exit_error(data);
-	if (!build_stack_from_values(data, values, n))
-		exit_error(data);
+		parse_exit_error(data, tokens, values, n);
+	if (validate(n, values, tokens) || has_duplicate(values, n)
+		|| !build_stack_from_values(data, values, n))
+		parse_exit_error(data, tokens, values, n);
 	free(values);
-	free(tokens);
+	free_tokens(tokens, n);
 	return (1);
 }
